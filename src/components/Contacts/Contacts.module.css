@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  background-color: rgb(216, 216, 215);
+  padding: 30px;
+  border: solid blue 1px;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.title {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.contactsList {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.contactsItem {
+  display: block;
+  text-align: center;
+}
+.contactsItem:not(:last-child) {
+  margin-bottom: 10px;
+}
+.btn {
+  margin: 0;
+  padding: 2px 6px;
+  margin-left: 8px;
+  background-color: rgb(7, 158, 245);
+  border-radius: 2px;
+  border: none;
+  font-size: 15px;
+}
+.btn:hover,
+.btn:focus {
+  background-color: rgb(227, 237, 37);
+}

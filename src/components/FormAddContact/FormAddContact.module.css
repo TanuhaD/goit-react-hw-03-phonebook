@@ -1,0 +1,45 @@
+.title {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.container {
+  background-color: rgb(216, 216, 215);
+  padding: 30px;
+  display: flex;
+  height: 150px;
+  flex-direction: column;
+  text-align: center;
+  border: solid blue 1px;
+  align-items: center;
+  justify-content: space-around;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.text {
+  font-size: 15px;
+}
+.text:not(:last-child) {
+  margin-bottom: 10px;
+}
+.input {
+  margin-bottom: 5px;
+}
+.button {
+  display: block;
+  margin: 0;
+  padding: 2px 6px;
+
+  background-color: rgb(7, 158, 245);
+  border-radius: 2px;
+  border: none;
+  font-size: 15px;
+}
+.button:hover,
+.button:focus {
+  background-color: rgb(227, 237, 37);
+}

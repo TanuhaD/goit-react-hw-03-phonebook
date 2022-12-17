@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.input {
+  display: inline-block;
+
+  text-align: center;
+  flex-direction: column;
+}
