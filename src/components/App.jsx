@@ -4,16 +4,23 @@ import { FormAddContact, Contacts, Filter } from './';
 
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    contactsToShow: [],
+    contacts: [],
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    if (contacts) {
+      this.setState({
+        contacts: JSON.parse(contacts),
+      });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
   addContact = ({ name, number }) => {
     const isNameInContacts = this.state.contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -39,35 +46,31 @@ export class App extends Component {
   deleteContact = idToDelete => {
     this.setState({
       contacts: [...this.state.contacts].filter(({ id }) => id !== idToDelete),
-      contactsToShow: [...this.state.contactsToShow].filter(
-        ({ id }) => id !== idToDelete
-      ),
     });
   };
 
-  filterContacts = filterValue => {
-    const contactsToShow = filterValue
-      ? [...this.state.contacts].filter(({ name }) =>
-          name.toLowerCase().includes(filterValue)
-        )
-      : [];
-    this.setState({ filter: filterValue, contactsToShow });
+  setFilter = filterValue => {
+    this.setState({
+      filter: filterValue.toLowerCase().trim(),
+    });
+  };
+
+  filterContacts = () => {
+    const { filter, contacts } = this.state;
+    return filter
+      ? contacts.filter(({ name }) => name.toLowerCase().includes(filter))
+      : contacts;
   };
 
   render() {
-    const { contacts, contactsToShow } = this.state;
     return (
       <div>
         <FormAddContact addContact={this.addContact} />
         <Contacts
-          contacts={
-            contactsToShow.length || this.state.filter
-              ? [...contactsToShow]
-              : [...contacts]
-          }
+          contacts={this.filterContacts()}
           deleteContact={this.deleteContact}
         >
-          <Filter filterHandler={this.filterContacts} />
+          <Filter filterHandler={this.setFilter} />
         </Contacts>
       </div>
     );
